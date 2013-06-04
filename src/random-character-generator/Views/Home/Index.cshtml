@@ -1,0 +1,42 @@
+﻿@model random_character_generator.Models.Character
+<h1>
+    <strong>@Model.Name</strong>
+</h1>
+<h2>@Model.Race.ToString() @Model.CharacterClass.ToString()</h2>
+
+<h3>Origin Story</h3>
+<h6>
+    @{
+        Type type = Model.Race.GetType();
+        string name = Enum.GetName(type, Model.Race);
+        System.Reflection.FieldInfo field = type.GetField(name);
+        if (field != null)
+        {
+            System.ComponentModel.DescriptionAttribute attr =
+                   Attribute.GetCustomAttribute(field,
+                     typeof(System.ComponentModel.DescriptionAttribute)) as System.ComponentModel.DescriptionAttribute;
+            if (attr != null)
+            {
+        @attr.Description;
+            }
+        }}
+
+</h6>
+<ul>
+    @Html.DisplayFor(x => Model.OriginStory.Homeland)
+    @Html.DisplayFor(x => Model.OriginStory.Parents)
+    <li>Siblings: <b>@Model.OriginStory.Siblings.Element</b>
+        <ul>
+            @foreach (var sibling in Model.OriginStory.Siblings.SiblingList)
+            {
+                <li>@sibling.Name who is a @(sibling.IsYounger ? "younger" : "older") @(sibling.Gender).
+                    @if (sibling.IsAdopted)
+                    {
+                        <text>They are an adopted @sibling.Race</text>
+                    }
+                </li>
+            }
+        </ul>
+    </li>
+
+</ul>

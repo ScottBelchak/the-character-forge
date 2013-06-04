@@ -1,0 +1,11 @@
+﻿@model random_character_generator.Models.StoryElement
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var name = fieldName.Substring(fieldName.LastIndexOf('.') + 1, fieldName.Length - fieldName.LastIndexOf('.') - 1);
+  }
+<li>@name: <b>@Model.Element</b>
+    @if (Model.UnlockedTraits != null && Model.UnlockedTraits.Any())
+    {
+       <text>You gain access to the @Html.Raw(String.Join(" and ", Model.UnlockedTraits.Select(x => x.TraitHtml))).</text>
+    }
+</li>
