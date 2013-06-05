@@ -70,7 +70,7 @@ namespace random_character_generator.Services
             }
             if (roll.IsBetween(76, 80))
             {
-                StoryElement newStoryElement = new StoryElement("Influential Associate: ", "The Fiend: In your adolescent years, you dealt with or were possessed by a fiend who lent you raw power at a time of great need. This experience tainted your body and mind and changed your life. Some part of the demon remains inside you like an old friend, influencing you toward destructive ends.", "Possessed");
+                StoryElement newStoryElement = new StoryElement("Influential Associate: The Fiend: In your adolescent years, you dealt with or were possessed by a fiend who lent you raw power at a time of great need. This experience tainted your body and mind and changed your life. Some part of the demon remains inside you like an old friend, influencing you toward destructive ends.", "Possessed");
                 newStoryElement.StoryFeats.Add("Damned");
                 return newStoryElement;
             }

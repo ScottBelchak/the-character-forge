@@ -165,7 +165,7 @@ namespace random_character_generator.Services
             if (roll.IsBetween(1, 40))
                 return new List<StoryElement>() 
                 { 
-                    new StoryElement("Lower-Class Birth: You were born among peasants or slum denizens. You grew up working the land around a village or manor, practicing a rudimentary trade, or begging in a settlement.", "Poverty Stricken"),
+                    new StoryElement("Lower-Class Birth: You were born among peasants or slum denizens. You grew up working the land around a village or manor, practicing a rudimentary trade, or begging in a settlement.", "Poverty-Stricken"),
                     GenerateParentsProfession(Roll.d20() + Roll.d20())
                 };
             else if (roll.IsBetween(41, 65))
