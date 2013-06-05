@@ -11,6 +11,23 @@ namespace random_character_generator.Models
         public string AdditionalInformation { get; set; }
         public IList<string> StoryFeats { get; set; }
         public List<Trait> UnlockedTraits { get; set; }
+        public string ElementHtml
+        {
+            get
+            {
+                string title = "";
+                string description = Element;
+                if (Element.Contains(":"))
+                {
+                    title = Element.Substring(0, Element.IndexOf(":") + 1);
+                    description = Element.Replace(title, "");
+                    return String.Format("<strong>{0}</strong>{1}", title, description);
+                }
+                else
+                    return String.Format("<strong>{0}</strong>", Element);
+            }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the StoryElement class.
         /// </summary>

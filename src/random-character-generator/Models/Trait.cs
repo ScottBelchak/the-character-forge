@@ -12,7 +12,10 @@ namespace random_character_generator.Models
         public string SRDLink { get; set; }
         public string TraitHtml
         {
-            get { return String.Format("<strong>{0}</strong>", TraitName); }
+            get 
+            {
+                return String.Format("<strong>{0}</strong>", TraitName); 
+            }
         }
     }
 }

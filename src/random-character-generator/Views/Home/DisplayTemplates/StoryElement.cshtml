@@ -3,13 +3,13 @@
     var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
     var name = fieldName.Substring(fieldName.LastIndexOf('.') + 1, fieldName.Length - fieldName.LastIndexOf('.') - 1);
 }
-<li>@name: <b>@Model.Element</b>
+<li>@name: @Html.Raw(Model.ElementHtml)
     @if (Model.UnlockedTraits != null && Model.UnlockedTraits.Any())
     {
         <ul>
             @foreach (var feat in Model.UnlockedTraits)
             {
-                <li>You gain the <strong>@feat.TraitName</strong> trait</li>
+                <li>You gain the @Html.Raw(feat.TraitHtml) trait</li>
             }
         </ul>
     }

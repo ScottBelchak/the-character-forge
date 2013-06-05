@@ -95,6 +95,8 @@ namespace random_character_generator.App_Start
             kernel.Bind<IDiceRoller>().To<DiceRoller>();
             kernel.Bind<IRandomNameGenerator>().To<RandomNameGenerator>();
             kernel.Bind<OriginStoryGenerator>().ToSelf();
+            kernel.Bind<AdolescenceAndTrainingGenerator>().ToSelf();
+            kernel.Bind<RelationshipGenerator>().ToSelf();
             kernel.Bind<CharacterCreator>().ToSelf();
             kernel.Bind<Random>().ToMethod(x => new Random()).InSingletonScope();
         }        

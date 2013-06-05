@@ -42,8 +42,54 @@
     {
         @Html.DisplayFor(x => CircumstancesOfBirth)
     }
-     @foreach (var MajorChildhoodEvent in Model.OriginStory.ChildhoodEvents)
+    @foreach (var MajorChildhoodEvent in Model.OriginStory.ChildhoodEvents)
     {
         @Html.DisplayFor(x => MajorChildhoodEvent)
+    }
+</ul>
+<h3>Adolescence and Training</h3>
+<h4>@Model.CharacterClass</h4>
+<h6>
+    @{
+        Type classtype = Model.CharacterClass.GetType();
+        string classname = Enum.GetName(classtype, Model.CharacterClass);
+        System.Reflection.FieldInfo classfield = classtype.GetField(classname);
+        if (classfield != null)
+        {
+            System.ComponentModel.DescriptionAttribute attr = Attribute.GetCustomAttribute(classfield, typeof(System.ComponentModel.DescriptionAttribute)) as System.ComponentModel.DescriptionAttribute;
+            if (attr != null)
+            {
+        @attr.Description;
+            }
+        }}
+
+</h6>
+<ul>
+    @foreach (var Training in Model.AdolescenceAndTraining)
+    {
+        @Html.DisplayFor(x => Training)
+    }
+</ul>
+<h3>Relationships</h3>
+
+<ul>
+    @foreach (var Relationship in Model.Relationships)
+    {
+        @Html.DisplayFor(x => Relationship)
+    }
+</ul>
+<h3>All unlocked traits and story feats</h3>
+<h4>Traits</h4>
+<ul>
+    @foreach (var trait in Model.AllStoryElements.SelectMany(x => x.UnlockedTraits).Select(x => x.TraitName).Where(x => !String.IsNullOrEmpty(x)).Distinct().OrderBy(x => x))
+    {
+        <li>@trait</li>
+    }
+</ul>
+<h4>Story Feats</h4>
+<ul>
+    @foreach (var feat in Model.AllStoryElements.SelectMany(x => x.StoryFeats).Distinct().OrderBy(x => x))
+    {
+        <li>@feat</li>
     }
 </ul>

@@ -37,6 +37,7 @@ namespace random_character_generator.Services
 
             result.CircumstancesOfBirth = GenerateCircumstanceOfBirth(race);
             result.ChildhoodEvents = GenerateChildhoodEvents(race);
+
             return result;
         }
         private IEnumerable<StoryElement> GenerateChildhoodEvents(Race race)
@@ -81,8 +82,9 @@ namespace random_character_generator.Services
             }
             else if (roll.IsBetween(46, 50))
             {
-                result.Add(new StoryElement("Troubled First Love: Your first love was everything you imagined it would be. That is, until you were separated from your beloved. This may have been the result of distance, changing perspectives, death, or differences in class or family. Some have said this made you jaded—you think it has granted you insight on how the world really works.", "Worldly"));
-                result.Add(Relationship(Roll.d12()));
+                StoryElement newStoryElement = new StoryElement("Troubled First Love: Your first love was everything you imagined it would be. That is, until you were separated from your beloved. This may have been the result of distance, changing perspectives, death, or differences in class or family. Some have said this made you jaded—you think it has granted you insight on how the world really works.", "Worldly");
+                newStoryElement.AdditionalInformation = "d12 relationship";
+                result.Add(newStoryElement);
             }
 
             else if (roll.IsBetween(51, 55))
