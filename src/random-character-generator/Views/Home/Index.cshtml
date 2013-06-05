@@ -29,10 +29,10 @@
         <ul>
             @foreach (var sibling in Model.OriginStory.Siblings.SiblingList)
             {
-                <li>@sibling.Name who is a @(sibling.IsYounger ? "younger" : "older") @(sibling.Gender).
+                <li>@sibling.Name who is a @(sibling.IsYounger ? "younger" : "older") <strong>@sibling.Race</strong> @(sibling.Gender).
                     @if (sibling.IsAdopted)
                     {
-                        <text>They are an adopted @sibling.Race</text>
+                        <text>They are an adopted <strong>@sibling.Race</strong></text>
                     }
                 </li>
             }

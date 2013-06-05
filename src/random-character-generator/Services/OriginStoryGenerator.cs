@@ -66,53 +66,40 @@ namespace random_character_generator.Services
                         return NewUnusualHomeland();
                 case Race.HalfElf:
                     if (roll.IsBetween(1, 25))
-                        return ElvenHomeland(Roll.d100(), true);
+                        return ElvenHomeland(Roll.d100(), Race.HalfElf);
                     else if (roll.IsBetween(26, 75))
-                        return HumanHomeland(Roll.d100(), true);
+                        return HumanHomeland(Roll.d100(), Race.HalfElf);
                     else if (roll.IsBetween(76, 95))
                         return new StoryElement("Forest", "Log Roller");
-                    else 
+                    else
                         return NewUnusualHomeland();
                 case Race.HalfOrc:
-                    break;
+                    if (roll.IsBetween(1, 25))
+                        return new StoryElement("Subterranean", "Scrapper", "Surface Stranger");
+                    else if (roll.IsBetween(26, 60))
+                        return new StoryElement("Orc Settlement", "Scrapper");
+                    else if (roll.IsBetween(61, 75))
+                        return HumanHomeland(Roll.d100(), Race.HalfOrc);
+                    else
+                        return NewUnusualHomeland();
                 case Race.Halfling:
-                    break;
+                    if (roll.IsBetween(1, 50))
+                        return new StoryElement("Halfling Settlement", "Civilized", "Well-informed");
+                    else if (roll.IsBetween(51, 80))
+                        return new StoryElement("Human Settlement", "Child of the Streets", "Well-informed");
+                    else if (roll.IsBetween(81, 95))
+                        return new StoryElement("Traveling Band or Caravan", "Friend in Every Town");
+                    else
+                        return NewUnusualHomeland();
                 case Race.Human:
-                    break;
+                    return HumanHomeland(roll);
                 default:
                     break;
             }
             return homeland;
         }
 
-        private StoryElement HumanHomeland(int p1, bool p2)
-        {
-            return new StoryElement("Human");
-        }
-        private StoryElement ElvenHomeland(int roll, bool isHalfElf = false)
-        {
-            if (roll.IsBetween(1, 60))
-                return new StoryElement("Forest", "Log Roller");
-            else if (roll.IsBetween(61, 80))
-            {
-                if (isHalfElf)
-                    return new StoryElement("Non-Elven City or Metropolis", "Civilized", "Failed Apprentice");
-                else
-                    return new StoryElement("Non-Elven City or Metropolis", "Civilized", "Forlorn");
-            }
-            else if (roll.IsBetween(81, 95))
-            {
-                if (isHalfElf)
-                    return new StoryElement("Non-Elven Town or Village", "Failed Apprentice");
-                else
-                    return new StoryElement("Non-Elven Town or Village", "Forlorn");
-            }
-            else
-                if (isHalfElf)
-                    return NewUnusualHomeland("Elven Reflexes");
-                else
-                    return NewUnusualHomeland("Forlorn");
-        }
+        
         private StoryElement GenerateParents(Race race)
         {
             StoryElement parents = null;
@@ -127,7 +114,7 @@ namespace random_character_generator.Services
                     else if (roll.IsBetween(74, 86))
                         parents = new StoryElement("Only your mother is alive");
                     else
-                        parents = new StoryElement("Both of your parents are dead", "Orphaned social");
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.Elf:
                     if (roll.IsBetween(1, 79))
@@ -137,7 +124,7 @@ namespace random_character_generator.Services
                     else if (roll.IsBetween(88, 95))
                         parents = new StoryElement("Only your mother is alive");
                     else
-                        parents = new StoryElement("Both of your parents are dead", "Orphaned social");
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.Gnome:
                     if (roll.IsBetween(1, 90))
@@ -147,23 +134,47 @@ namespace random_character_generator.Services
                     else if (roll.IsBetween(94, 96))
                         parents = new StoryElement("Only your mother is alive");
                     else
-                        parents = new StoryElement("Both of your parents are dead", "Orphaned social");
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.HalfElf:
-                     if (roll.IsBetween(1, 20))
+                    if (roll.IsBetween(1, 20))
                         parents = new StoryElement("Both your parents are still alive");
                     else if (roll.IsBetween(21, 55))
                         parents = new StoryElement("Only your father is alive");
                     else if (roll.IsBetween(56, 90))
                         parents = new StoryElement("Only your mother is alive");
                     else
-                        parents = new StoryElement("Both of your parents are dead", "Orphaned social");
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.HalfOrc:
+                    if (roll.IsBetween(1, 10))
+                        parents = new StoryElement("Both your parents are still alive");
+                    else if (roll.IsBetween(11, 35))
+                        parents = new StoryElement("Only your father is alive");
+                    else if (roll.IsBetween(36, 60))
+                        parents = new StoryElement("Only your mother is alive");
+                    else
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.Halfling:
+                    if (roll.IsBetween(1, 70))
+                        parents = new StoryElement("Both your parents are still alive");
+                    else if (roll.IsBetween(71, 80))
+                        parents = new StoryElement("Only your father is alive");
+                    else if (roll.IsBetween(81, 90))
+                        parents = new StoryElement("Only your mother is alive");
+                    else
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 case Race.Human:
+                    if (roll.IsBetween(1, 50))
+                        parents = new StoryElement("Both your parents are still alive");
+                    else if (roll.IsBetween(41, 70))
+                        parents = new StoryElement("Only your father is alive");
+                    else if (roll.IsBetween(71, 90))
+                        parents = new StoryElement("Only your mother is alive");
+                    else
+                        parents = new StoryElement("Both of your parents are dead", "Orphaned");
                     break;
                 default:
                     break;
@@ -271,10 +282,74 @@ namespace random_character_generator.Services
                         siblings = new Siblings("You have no siblings");
                     break;
                 case Race.HalfOrc:
+                    if (roll.IsBetween(1, 60))
+                    {
+                        var numberOfSiblings = Roll.d6() + 1;
+                        siblings = new Siblings(String.Format("You have {0} orc siblings", numberOfSiblings), numberOfSiblings > 1 ? "Kin Guardian" : null);
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else if (roll.IsBetween(61, 70))
+                    {
+                        var numberOfSiblings = Roll.d4();
+                        siblings = new Siblings(String.Format("You have {0} human siblings", numberOfSiblings), numberOfSiblings > 1 ? "Kin Guardian" : null);
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else if (roll.IsBetween(71, 80))
+                    {
+                        var numberOfSiblings = 1;
+                        siblings = new Siblings(String.Format("You have {0} half orc sibling", numberOfSiblings), numberOfSiblings > 1 ? "Kin Guardian" : null);
+                        siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else
+                        siblings = new Siblings("You have no siblings");
                     break;
                 case Race.Halfling:
+                    if (roll.IsBetween(1, 30))
+                    {
+                        var numberOfSiblings = Roll.d2();
+                        siblings = new Siblings(String.Format("You have {0} siblings", numberOfSiblings), numberOfSiblings > 1 ? "Kin Guardian" : null);
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else if (roll.IsBetween(31, 90))
+                    {
+                        var numberOfSiblings = Roll.d4() + 1;
+                        siblings = new Siblings(String.Format("You have {0} siblings", numberOfSiblings), "Kin Guardian");
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else
+                        siblings = new Siblings("You have no siblings");
                     break;
                 case Race.Human:
+                    if (roll.IsBetween(1, 40))
+                    {
+                        var numberOfSiblings = Roll.d2();
+                        siblings = new Siblings(String.Format("You have {0} siblings", numberOfSiblings), numberOfSiblings > 1 ? "Kin Guardian" : null);
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else if (roll.IsBetween(41, 70))
+                    {
+                        var numberOfSiblings = Roll.d2();
+                        var numberOfHalfSiblings = Roll.d2();
+                        siblings = new Siblings(String.Format("You have {0} human siblings and {1} half-siblings", numberOfSiblings, numberOfHalfSiblings), "Kin Guardian");
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                        for (int i = 0; i < numberOfHalfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling(raceOverride: Roll.d100() < 50 ? "half-elf" : "half-orc"));
+                    }
+                    else if (roll.IsBetween(71, 90))
+                    {
+                        var numberOfSiblings = Roll.d4();
+                        siblings = new Siblings(String.Format("You have {0} siblings", numberOfSiblings), "Kin Guardian");
+                        for (int i = 0; i < numberOfSiblings; i++)
+                            siblings.SiblingList.Add(GenerateSibling());
+                    }
+                    else
+                        siblings = new Siblings("You have no siblings");
                     break;
                 default:
                     break;
@@ -282,13 +357,14 @@ namespace random_character_generator.Services
             return siblings;
         }
 
-        private Sibling GenerateSibling(bool isAdopted = false)
+        private Sibling GenerateSibling(bool isAdopted = false, string raceOverride = null)
         {
             var result = new Sibling()
             {
                 Name = NameGenerator.GetRandomName(),
                 Gender = Roll.d100() > 50 ? "Brother" : "Sister",
-                IsAdopted = isAdopted
+                IsAdopted = isAdopted,
+                Race = raceOverride
             };
             int olderRoll = Roll.d100();
             if (olderRoll.IsBetween(1, 48))
@@ -341,7 +417,50 @@ namespace random_character_generator.Services
             else return "Ifrit";
         }
 
-
+        private StoryElement HumanHomeland(int roll, Race race = Race.Human)
+        {
+            if (roll.IsBetween(1, 50))
+                return new StoryElement("Town of Village", "Milita Veteran");
+            else if (roll.IsBetween(51, 85))
+            {
+                if (race == Race.HalfElf)
+                    return new StoryElement("City or Metropolis", "Civilized", "Failed Apprentice");
+                else if (race == Race.HalfOrc)
+                    return new StoryElement("City or Metropolis", "Brute", "Vagabond Child");
+                else
+                    return new StoryElement("City or Metropolis", "Civilized", "Vagabond Child");
+            }
+            else if (roll.IsBetween(86, 95))
+            {
+                return new StoryElement("Frontier", "Frontier-Forged");
+            }
+            else
+                return NewUnusualHomeland();
+        }
+        private StoryElement ElvenHomeland(int roll, Race race = Race.Elf)
+        {
+            if (roll.IsBetween(1, 60))
+                return new StoryElement("Forest", "Log Roller");
+            else if (roll.IsBetween(61, 80))
+            {
+                if (race == Race.HalfElf)
+                    return new StoryElement("Non-Elven City or Metropolis", "Civilized", "Failed Apprentice");
+                else
+                    return new StoryElement("Non-Elven City or Metropolis", "Civilized", "Forlorn");
+            }
+            else if (roll.IsBetween(81, 95))
+            {
+                if (race == Race.HalfElf)
+                    return new StoryElement("Non-Elven Town or Village", "Failed Apprentice");
+                else
+                    return new StoryElement("Non-Elven Town or Village", "Forlorn");
+            }
+            else
+                if (race == Race.HalfElf)
+                    return NewUnusualHomeland("Elven Reflexes");
+                else
+                    return NewUnusualHomeland("Forlorn");
+        }
 
 
         private StoryElement NewUnusualHomeland(string additionalTrait = null)

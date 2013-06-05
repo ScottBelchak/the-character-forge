@@ -23,7 +23,6 @@ namespace random_character_generator.Controllers
         }
         public ActionResult Index(Race? race = null, CharacterClass? characterClass = null)
         {
-            race = Race.HalfElf;
             if (!race.HasValue)
             {
                 Array values = Enum.GetValues(typeof(Race));

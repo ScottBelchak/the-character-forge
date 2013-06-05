@@ -16,8 +16,11 @@ namespace random_character_generator.Models
         Gnome,
         [Description("Born of two very different worlds, half-elves rarely have easy childhoods. Torn as half-elves are between disparate peoples, the presence of their families helps ensure they do not grow up totally alone, though orphaned half-elves have to create families of their own.")]
         HalfElf,
+        [Description("Only rarely the result of a happy union between the humans and orcs that bring them into the world, halforcs are often regarded as monsters. This bleak reality makes those rare half-orcs, cherished as much as the young of any other race, even more extraordinary.")]
         HalfOrc,
+        [Description("Social and amicable by nature, halflings fit equally well in both communities of humans and those of their wily kinsfolk. Prone to wanderlust, half lings can be found anywhere civilized humanoids settle.")] 
         Halfling,
+        [Description("As diverse as they are widespread, humans tend to grow up in small or large societies of people with similar origins and histories, though individuals’ paths may run the gamut from idealized to tragic.")]
         Human
     }
     public enum CharacterClass

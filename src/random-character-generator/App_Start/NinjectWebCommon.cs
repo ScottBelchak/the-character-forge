@@ -69,7 +69,7 @@ namespace random_character_generator.App_Start
                 {
                     if (!session.Query<Name>().Any())
                     {
-                        var nameRows = from l in File.ReadLines(@"F:\random-character-generator\src\random-character-generator\FantasyNames.txt")
+                        var nameRows = from l in File.ReadLines(@"E:\!Code\the-character-forge\src\random-character-generator\FantasyNames.txt")
                                     let row = l.Split(new string[] { ",", " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(row => row)
                                     select row;
                         foreach (var group in nameRows)
