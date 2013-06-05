@@ -38,5 +38,12 @@
             }
         </ul>
     </li>
-
+    @foreach (var CircumstancesOfBirth in Model.OriginStory.CircumstancesOfBirth)
+    {
+        @Html.DisplayFor(x => CircumstancesOfBirth)
+    }
+     @foreach (var MajorChildhoodEvent in Model.OriginStory.ChildhoodEvents)
+    {
+        @Html.DisplayFor(x => MajorChildhoodEvent)
+    }
 </ul>

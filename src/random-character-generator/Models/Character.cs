@@ -62,10 +62,9 @@ namespace random_character_generator.Models
         public StoryElement Parents { get; set; }
         public Siblings Siblings { get; set; }
 
-        public StoryElement CircumstanceOfBirth { get; set; }
-        public StoryElement FurtherBirthDetails { get; set; }
+        public IList<StoryElement> CircumstancesOfBirth { get; set; }
 
-        public StoryElement MajorChildhoodEvent { get; set; }
+        public IEnumerable<StoryElement> ChildhoodEvents { get; set; }
     }
     public class Siblings : StoryElement
     {

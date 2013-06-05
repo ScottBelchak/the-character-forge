@@ -34,11 +34,356 @@ namespace random_character_generator.Services
             result.Homeland = GenerateHomeland(race);
             result.Parents = GenerateParents(race);
             result.Siblings = GenerateSiblings(race);
+
+            result.CircumstancesOfBirth = GenerateCircumstanceOfBirth(race);
+            result.ChildhoodEvents = GenerateChildhoodEvents(race);
             return result;
+        }
+        private IEnumerable<StoryElement> GenerateChildhoodEvents(Race race)
+        {
+            IList<StoryElement> result = new List<StoryElement>();
+
+            int roll = Roll.d100();
+
+            if (roll.IsBetween(1, 5))
+                result.Add(new StoryElement("Academy Training: You attended a private academy where you studied a number of skills and gained training in your current profession. Whether you were a brilliant student or a dropout, the university environment was your home for a good portion of your formative years", "Focused Mind"));
+            else if (roll.IsBetween(6, 10))
+                result.Add(new StoryElement("Betrayal: A friend or family member whom you trusted more than anyone else betrayed you. You have never fully trusted anyone since and prefer to rely on your own abilities rather than place your trust in others", "Suspicious"));
+            else if (roll.IsBetween(11, 15))
+                result.Add(new StoryElement("Bullied: In your early life, you were a victim—easy prey for those stronger or cleverer than yourself. They beat you when they could, using you for their sport. This abuse nursed a powerful flame of vengeance.", "Bullied"));
+            else if (roll.IsBetween(16, 20))
+            {
+                StoryElement newStoryElement = new StoryElement("Competition Champion: You distinguished yourself at an early age when you won a competition. This might have been a martial contest of arms, a showing of apprentice magicians, high stakes gambling, or something mundane like an eating championship", "Influence");
+                newStoryElement.StoryFeats.Add("Champion");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(21, 25))
+            {
+                StoryElement newStoryElement = new StoryElement("Death in the Family: You were profoundly affected by the death of the relative closest to you—a parent, grandparent, favorite sibling, aunt, uncle, or cousin. This death affected you profoundly, and you’ve never been able to let go of it.", "Reactionary");
+                newStoryElement.StoryFeats.Add("Deny the Reaper");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(26, 30))
+            {
+                StoryElement newStoryElement = new StoryElement("Died: You died, or came so close to death that you walked the boundary between the realms of the living and the dead. Having passed from life’s domain once, you have a unique perspective on life, perhaps even a greater appreciation for it—or maybe your experience caused you to reject all trivial things, focusing only on matters of true import.", "Fearless Defiance");
+                newStoryElement.StoryFeats.Add("Arisen");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(31, 35))
+                result.Add(new StoryElement("Fall of a Major Power: In your early years, an old power with far-reaching influence fell into decline. This could have been an empire, a major organization or gang, or a person such as a benevolent king or evil dictator. Your early memories were founded in a world where this great power affected your region for good or ill.", "Worldly"));
+            else if (roll.IsBetween(36, 40))
+                result.Add(new StoryElement("Fell in with a Bad Crowd: In your youth, you ran with a brutal, evil, or sadistic crowd. You might have belonged to a gang, a thieves’ guild, or some other nefarious organization. It was easy to cave in to pressure and do whatever they told you to do, and your outlook is colored by moral ambiguity", "Child of the Streets"));
+            else if (roll.IsBetween(41, 46))
+            {
+                StoryElement newStoryElement = new StoryElement("First Kill: You’ve had blood on your hands since your youth, when you first took the life of another creature. Whether this act repulsed you or gave you pleasure, it was a formative experience.", "Killer");
+                newStoryElement.StoryFeats.Add("Innocent Blood");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(46, 50))
+            {
+                result.Add(new StoryElement("Troubled First Love: Your first love was everything you imagined it would be. That is, until you were separated from your beloved. This may have been the result of distance, changing perspectives, death, or differences in class or family. Some have said this made you jaded—you think it has granted you insight on how the world really works.", "Worldly"));
+                result.Add(Relationship(Roll.d12()));
+            }
+
+            else if (roll.IsBetween(51, 55))
+            {
+                StoryElement newStoryElement = new StoryElement("Imprisoned: Your criminal record began when you were young. You were imprisoned, punished, and possibly displayed in public as a criminal. Whether or not you committed the crime, the experience has stayed with you.", "Criminal");
+                newStoryElement.StoryFeats.Add("Liberator");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(56, 60))
+                result.Add(new StoryElement("Inheritance: A great sum of wealth or property was bequeathed to you at an early age, providing you with extraordinary means. Daily costs of living have ceased to concern you, and you’ve learned that there is little that money cannot buy.", "Rich Parents"));
+            else if (roll.IsBetween(61, 65))
+            {
+                StoryElement newStoryElement = new StoryElement("Kidnapped: You were kidnapped at some point in your childhood. The kidnappers might have been pirates, slavers, thieves looking for ransom, a powerful guild seeking to blackmail your parents, a cult, and so on else. Before you were released, were ransomed, or escaped, you picked up on various aspects of the criminal underworld.", "Canter");
+                newStoryElement.StoryFeats.Add("Liberator");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(66, 70))
+                result.Add(new StoryElement("Magical Gift: When you were a child, you found, stole, or were given a magic item that gave you an extraordinary ability. You may have used this item for mischief, crime, or good. Since that time, magic items have always held a special fascination for you.", "Magical Talent"));
+            else if (roll.IsBetween(71, 75))
+            {
+                StoryElement newStoryElement = new StoryElement("Major Disaster: You witnessed—and survived—a major disaster in your childhood years, such as a great fire, flood, earthquake, volcano, or storm. It obliterated the settlement where you lived, whether a small village, large city, or entire island.", "Resilient");
+                newStoryElement.StoryFeats.Add("Unforgotten");
+                result.Add(newStoryElement);
+            }
+            else if (roll.IsBetween(76, 80))
+                result.Add(new StoryElement("Mentorship/Patronage: A mentor or patron took an interest in your development and volunteered to train or sponsor you. This creature’s motives might not be entirely clear, but without its influence you would not be who you are.", "Mentored"));
+            else if (roll.IsBetween(81, 85))
+                result.Add(new StoryElement("Met a Fantastic Creature: When you were only a child, you made contact with a magical creature, such as a dragon, unicorn, genie, pixie, or similar creature. You learned a powerful lesson or a magic trick from that creature. This meeting changed your life and made you different from the other children.", "Gifted Adept"));
+            else if (roll.IsBetween(86, 90))
+                result.Add(new StoryElement("Ordinary Childhood: Your childhood was fairly ordinary, with no major blessing or catastrophe—a stark contrast to an adventuring life. You lived your life in anticipation of growing up so you could affect the dull backdrop upon which your mundane life was painted. Now that you’ve grown, it’s easy to miss those tranquil days where nothing ever seemed to happen.", "Ordinary"));
+            else if (roll.IsBetween(91, 95))
+            {
+                StoryElement newStoryElement = new StoryElement("Raiders: A horde of raiders attacked your settlement and killed several of your people. This could have been a tribe of brutal humanoids or the conquering army of a civilized nation. As a result, you harbor deep resentment toward a particular faction, race, or country.", "Axe to Grind");
+                newStoryElement.StoryFeats.Add("Foeslayer");
+                newStoryElement.StoryFeats.Add("Vengeance");
+                result.Add(newStoryElement);
+            }
+            else
+            {
+                StoryElement newStoryElement = new StoryElement("The War: You grew up against the backdrop of a major military conflict that affected much of your childhood world. You became accustomed to a short food supply, living in occupied territory, and moving from place to place. Several of the people you knew in your childhood were lost in the war, including members of your family.", "Vagabond Child");
+                newStoryElement.StoryFeats.Add("Reaper");
+                result.Add(newStoryElement);
+            }
+            return result;
+        }
+        private StoryElement Relationship(int roll)
+        {
+            throw new NotImplementedException();
+        }
+        private StoryElement GenerateParentsProfession(int roll) //ask for the roll in case of poverty
+        {
+            if (roll.IsBetween(1, 5))
+                return new StoryElement("Parents Profession: Slaves", "Life of Toil");
+            else if (roll.IsBetween(6, 25))
+                return new StoryElement("Parents Profession: Serfs/Peasants", "Poverty-Stricken");
+            else if (roll.IsBetween(26, 30))
+                return new StoryElement("Parents Profession: Entertainers", "Talented");
+            else if (roll.IsBetween(31, 34))
+                return new StoryElement("Parents Profession: Soldiers", "Tactician");
+            else if (roll.IsBetween(35, 37))
+                return new StoryElement("Parents Profession: Sailors", "Worldly");
+            else if (roll.IsBetween(38, 40))
+                return new StoryElement("Parents Profession: Thieves", "Child of the Streets");
+            else if (roll.IsBetween(41, 55))
+                return new StoryElement("Parents Profession: Yeomen", "Savanna Child");
+            else if (roll.IsBetween(56, 70))
+                return new StoryElement("Parents Profession: Tradespeople", "Artisan", "Life of Toil");
+            else if (roll.IsBetween(71, 85))
+                return new StoryElement("Parents Profession: Artisans", "Artisan");
+            else if (roll.IsBetween(86, 95))
+                return new StoryElement("Parents Profession: Merchants", "Merchant");
+            else
+                return new StoryElement("Parents Profession: Clergy of Cultists", "Child of the Temple");
+        }
+        private IList<StoryElement> GenerateCircumstanceOfBirth(Race race)
+        {
+            int roll = Roll.d100();
+            if (roll.IsBetween(1, 40))
+                return new List<StoryElement>() 
+                { 
+                    new StoryElement("Lower-Class Birth: You were born among peasants or slum denizens. You grew up working the land around a village or manor, practicing a rudimentary trade, or begging in a settlement.", "Poverty Stricken"),
+                    GenerateParentsProfession(Roll.d20() + Roll.d20())
+                };
+            else if (roll.IsBetween(41, 65))
+                return new List<StoryElement>() 
+                { 
+                    new StoryElement("Middle-Class Birth: You were born to the middle class, which includes merchants, artisans, and tradespeople. You likely grew up in a good-sized settlement, and one of your parents is likely associated with a guild or other trade organization. As a free person, you don’t experience the bondage of serfdom or peasantry, but you also lack the privilege of the nobility.", "Artisan", "Merchant") ,
+                    GenerateParentsProfession(Roll.d100())
+                };
+            else if (roll.IsBetween(66, 70))
+                return new List<StoryElement>() 
+                {
+                    new StoryElement("Noble Birth: You were born to privilege among the nobility. Unless one of your parents is the regent, your family serves a higher-ranked noble but lesser nobles serve your family in turn.", "Influence", "Rich Parents") ,
+                    GetNobility(race)
+                };
+            else if (roll.IsBetween(71, 72))
+                return new List<StoryElement>() 
+                { 
+                    new StoryElement("Adopted Outside Your Race: You were not raised by your birth family and grew up in a family of a different race than your own."),
+                    GetAdopted(race)
+                };
+            else if (roll.IsBetween(73, 77))
+            {
+                return new List<StoryElement>() 
+                { 
+                    new StoryElement("You were not raised by your birth family, but taken in by another family within your race or culture."),
+                    GenerateParentsProfession(Roll.d100()),
+                    GenerateParentsProfession(Roll.d100())
+                };
+            }
+            else if (roll.IsBetween(78, 81))
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Bastard Born: Your parents had a tryst that resulted in your birth out of wedlock. You know one of your parents, but the other remains unknown or a distant presence at best.", "Bastard", "Shamed")
+                    ,GenerateParentsProfession(Roll.d100())
+
+                    };
+            }
+            else if (roll == 82)
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Blessed Birth: When you were born, you were blessed by a being of great power such as an angel, azata, or genie. This blessing has protected you from certain peril or marked you as special to some deity.","Blessed","Birthmark")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll.IsBetween(83, 84))
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Your birth was caused by violent, unwilling means. You have one parent, and the other likely remains unknown.","Axe to Grind","Bastard")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 85)
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Born out of Time: You were born in a different era, either the distant past or the far future. Some event has displaced you from your time, and the ways and customs of the present seem strange and alien to you.","Scholar of the Great Beyond")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll.IsBetween(86, 87))
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Born into Bondage: You were born into slavery or servitude. Your parents are likely slaves or servants, or you were sold into slavery as an infant.","Life of Toil") 
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 88)
+            {
+                var background = new StoryElement("Cursed Birth: When you were born, a powerful fiendish entity tainted your blood in some way and cursed you as an agent of dark prophecy.", "Fiend Blood");
+                background.StoryFeats.Add("Accursed");
+                return new List<StoryElement>()
+                    {
+                        background
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll.IsBetween(89, 90))
+            {
+                StoryElement newStoryElement = new StoryElement("Dishonored Family: You were born into a family that once was honored among your society but has since fallen into disgrace. Now your family name is loathed and maligned by those who know it, putting you on your guard.", "Reactionary", "");
+                newStoryElement.StoryFeats.Add("Lost Legacy");
+                newStoryElement.StoryFeats.Add("Redemption");
+                return new List<StoryElement>()
+                    {
+                        newStoryElement
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll.IsBetween(91, 92))
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("Heir to a Legacy: You are the heir to a family with an old name and a distinguished past. Your family might be wealthy or middle class, but your name itself is worth twice your fortunes.","Influence","Rich Parents")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll.IsBetween(93, 94))
+            {
+                StoryElement newStoryElement = new StoryElement("Left to Die: When you were born you were left to die, but by some twist of circumstance you survived.", "Courageous", "Savage");
+                newStoryElement.StoryFeats.Add("Arisen");
+                return new List<StoryElement>()
+                    {
+                        newStoryElement
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 95)
+            {
+                StoryElement newStoryElement = new StoryElement("A deity has marked you. That mark can be on your body or your soul. ", "Birthmark", "Sacred Touch");
+                newStoryElement.StoryFeats.Add("Prophet");
+                return new List<StoryElement>()
+                    {
+                        newStoryElement
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 96)
+            {
+                StoryElement newStoryElement = new StoryElement("Energy Infused: During your birth you were exposed to potent source of divine energy.", "Sacred Conduit", "Sacred Touch");
+                return new List<StoryElement>()
+                    {
+                        newStoryElement,
+                        GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 97)
+            {
+                return new List<StoryElement>()
+                    {
+               new StoryElement("Progeny of Power: You were born during a particularly powerful conjunction or in some other time of power.", "Charming", "Sacred Touch")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 98)
+            {
+                return new List<StoryElement>()
+                    {
+               new StoryElement("Prophesied: Your birth was foretold, as recently as during the last generation to as far back as thousands of years ago", "Prophesized")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else if (roll == 99)
+            {
+                StoryElement newStoryElement = new StoryElement("Reincarnated: You have been reborn in many cycles, and may be reborn in many more until you accomplish the ultimate task for which you are destined.", "Reincarnated");
+                newStoryElement.StoryFeats.Add("Artisan");
+                newStoryElement.StoryFeats.Add("Forgotten Past");
+                return new List<StoryElement>()
+                    {
+                        newStoryElement
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+            else
+            {
+                return new List<StoryElement>()
+                    {
+                        new StoryElement("The sages, priests, or wizards of your society decreed your birth an omen of a coming age or event—perhaps you are an omen of promise, perhaps one of dark times ahead.", "Omen")
+                    ,GenerateParentsProfession(Roll.d100())
+                    };
+            }
+        }
+
+        private StoryElement GetAdopted(Race race)
+        {
+            int roll = Roll.d100();
+            if (roll.IsBetween(1, 5))
+                return new StoryElement("Adopted by Dragons: For its own purposes, a dragon raised you as its own. You have learned the language and history, wisdom, power, and might of dragonkind.", "Blood of Dragons", "Magical Knack");
+            else if (roll.IsBetween(6, 10))
+                return new StoryElement("Adopted by the Fey: Your adoptive parents were fey creatures such as korreds, pixies, or a dryad.", "Charming", "Magical Knack");
+            else if (roll.IsBetween(11, 13))
+            {
+                var result = new StoryElement("Raised Among the Dead: Your adoptive parent is a nonliving creature, such as a spectre, ghost, lich, or vampire. You were likely raised in empty ruined halls, among tombs and crypts, by a creature that feeds on life. What its purpose was for raising you, none can say.", "Deathtouched", "Magical Knack");
+                result.StoryFeats.Add("Glimpse Beyond");
+                return result;
+            }
+            else if (roll.IsBetween(14, 19))
+                return new StoryElement("Raised by Angels: Angels attended your birth and took you to live with them in the heavens. These cosmic beings expanded your view to encompass not just the world but the larger universe. You know that wherever you go, your angelic parents watch over you.", "Blessed");
+            else if (roll.IsBetween(20, 25))
+            {
+                var result = new StoryElement("Raised by Beasts: When you were separated from your biological parents, you were found and raised by wild beasts. Your ways are the ways of the wild, and along with your advanced survival instincts you’ve adopted the natural habits of a specific beast.", "Resilient");
+                result.StoryFeats.Add("Feral Heart");
+                return result;
+            }
+            else if (roll.IsBetween(26, 70))
+                return new StoryElement("Raised by Civilized Humanoids: You were raised by a community of civilized humanoids of a race different from your own (chosen by your GM). Your attitudes, beliefs, and values reflect that race, although characteristics of your true nature frequently emerge.");
+            else if (roll.IsBetween(71, 95))
+                return new StoryElement("Raised by Savage Humanoids: You were raised by savage humanoids such as orcs, kobolds, gnolls, troglodytes, or lizardfolk. As a result, your values, customs, and traditions are those of your adoptive parents, though characteristics of your true nature frequently emerge.", "Savage");
+            else
+            {
+                var result = new StoryElement("Fiend Raised: You were separated from your natural parents and raised by a fiend who taught you the cruelty and malice of the gods and worked to fashion you into its own mortal instrument to corrupt innocent souls", "Fiend Bloodline");
+                result.StoryFeats.Add("Damned");
+                return result;
+            }
+        }
+        private StoryElement GetNobility(Race race)
+        {
+            if (race == Race.HalfOrc)
+                return null;
+            int roll = Roll.d100();
+
+            if (roll.IsBetween(1, 60))
+                return new StoryElement("Gentry: You are the child of a minor lord, lady, or noble with an income, hereditary land such as a manor, and titles. You likely grew up in a manor and your parents were paid tribute by peasants. Your parents serve a higher baron, count, or duke.");
+            else if (roll.IsBetween(61, 78))
+                return new StoryElement("Knight: You are the child of a knight, a noble with estates, titles, and lands who serves a lord. Your family has sworn an oath of fealty to a liege—such as a baron, count, or duke—and commits to military service in his or her name. As the child of a knight, you may serve as a squire to another knight while pursuing your own path to knighthood.");
+            else if (roll.IsBetween(79, 85))
+                return new StoryElement("Baron: You are the child of a baron or baroness, a noble responsible for a land encompassing several smaller manors that pay tribute. Your parents receive orders directly from the monarch, and you’re expected to attend the royal court. You are entitled to hereditary estates, titles, and land.");
+            else if (roll.IsBetween(86, 91))
+                return new StoryElement("Count: You are the noble child of a count or countess. Your family members receive hereditary titles, land, and estates, and are among the most wealthy nobles in your domain. Knights and minor lords pay tribute to your family, and your parents attend directly to the monarch. You’re expected to attend the royal court.");
+            else if (roll.IsBetween(92, 96))
+                return new StoryElement("Duke: You are the child of a duke or duchess, the most powerful noble in the realm apart from the royal family. Your parents attend directly to the monarch and have the highest place at court. Your lands, titles, and estates are significant, and many lords and knights serve under your parents’ command.");
+            else if (roll.IsBetween(97, 99))
+                return new StoryElement("Minor Prince: You are the child of a prince or princess, and part of the royal family. You aren’t the next in succession, but your power and wealth are grand indeed.");
+            else
+                return new StoryElement("Regent: You are a prince or princess, the son or daughter of the monarch. You owe fealty directly to your parents, and to no one else. Few command the power and wealth you do, and your presence inspires great respect, if not total awe, among those who kneel before the crown.");
         }
         private StoryElement GenerateHomeland(Race race)
         {
-            StoryElement homeland = null;
             int roll = Roll.d100();
             switch (race)
             {
@@ -96,10 +441,10 @@ namespace random_character_generator.Services
                 default:
                     break;
             }
-            return homeland;
+            return null;
         }
 
-        
+
         private StoryElement GenerateParents(Race race)
         {
             StoryElement parents = null;
