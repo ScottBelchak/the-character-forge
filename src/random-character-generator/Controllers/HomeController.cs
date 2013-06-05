@@ -34,7 +34,10 @@ namespace random_character_generator.Controllers
                 characterClass = (CharacterClass)values.GetValue(Random.Next(values.Length));
             }
 
-            return View(creator.Create(characterClass.Value, race.Value));
+            Character result = creator.Create(characterClass.Value, race.Value);
+            ViewBag.Title = String.Format("{0} - {1} {2}", result.Name, result.Race, result.CharacterClass);
+
+            return View(result);
         }
     }
 }
